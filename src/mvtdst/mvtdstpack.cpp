@@ -316,21 +316,18 @@ s ',I7)", 0 };
     /* Function Body */
     ptblck_1.ivls = 0;
     if (*n > 1000 || *n < 1) {
-	*value = 0.;
-	*error = 1.;
-	*inform__ = 2;
+	    *value = 0.;
+	    *error = 1.;
+	    *inform__ = 2;
     } else {
-	mvints_(n, nu, &correl[1], &lower[1], &upper[1], &delta[1], &infin[1],
-		 &nd, value, error, inform__);
-	if (*inform__ == 0 && nd > 0) {
+	    mvints_(n, nu, &correl[1], &lower[1], &upper[1], &delta[1], &infin[1], &nd, value, error, inform__);
+	    if (*inform__ == 0 && nd > 0) {
 
-/*           Call the lattice rule integration subroutine */
-
-	    mvkbrv_(&nd, &ptblck_1.ivls, maxpts, &c__1, (U_fp)mvsubr_, abseps,
-		     releps, e, v, inform__);
-	    *error = e[0];
-	    *value = v[0];
-	}
+        /* Call the lattice rule integration subroutine */
+	      mvkbrv_(&nd, &ptblck_1.ivls, maxpts, &c__1, (U_fp)mvsubr_, abseps, releps, e, v, inform__);
+	      *error = e[0];
+	      *value = v[0];
+	    }
     }
     return 0;
 } /* mvtdst_ */
