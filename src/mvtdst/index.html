@@ -1,0 +1,34 @@
+<head>
+</head>
+
+<body>
+
+<div>
+  <p>Hello</p>
+</div>
+
+<script>
+  const memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
+  let importObject = {
+    imports: { imported_func: arg => console.log(arg) },
+    env: {
+        abort: alert,
+        abortStackOverflow: () => { throw new Error('overflow'); },
+        table: new WebAssembly.Table({ initial: 0, maximum: 0, element: 'anyfunc' }),
+        tableBase: 0,
+        memory: memory,
+        memoryBase: 1024,
+        STACKTOP: 0,
+        STACK_MAX: memory.buffer.byteLength,
+    }
+  };
+  fetch('mvtdstpack.wasm').then(response =>
+  	response.arrayBuffer()
+  ).then(bytes =>
+    WebAssembly.instantiate(bytes, importObject)
+  ).then(obj => {
+    console.log(obj.instance.exports.boom());
+  });
+</script>
+
+</body>
