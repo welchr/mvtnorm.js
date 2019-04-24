@@ -37,6 +37,14 @@ int boom() {
   return 42;
 }
 
+struct MVNormResult test() {
+  struct MVNormResult result;
+  result.value = 42;
+  result.error = 0.0;
+  result.inform = 3;
+  return result;
+}
+
 #ifdef __cplusplus
 }
 #endif
@@ -49,6 +57,7 @@ EMSCRIPTEN_BINDINGS(mvtnorm) {
   function("pmvnorm", &pmvnorm, allow_raw_pointers());
   function("tstmvt", &tstmvt_);
   function("boom", &boom);
+  function("test", &test);
   register_vector<long int>("IntVec");
   register_vector<double>("DoubleVec");
 }
