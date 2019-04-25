@@ -17,6 +17,9 @@ extern "C" {
 
 /* Common Block Declarations */
 
+// Pointer to user-defined integrand subroutine
+typedef int (*integrand)(integer *, doublereal *, integer *, doublereal *);
+
 int MAIN__() { return 0; }
 
 struct {
@@ -227,7 +230,7 @@ s ',I7)", 0 };
     static doublereal e[1], v[1];
     static integer nd;
     extern /* Subroutine */ int mvkbrv_(integer *, integer *, integer *, 
-	    integer *, U_fp, doublereal *, doublereal *, doublereal *, 
+	    integer *, integrand, doublereal *, doublereal *, doublereal *, 
 	    doublereal *, integer *);
     extern /* Subroutine */ int mvsubr_(integer *, doublereal *, integer *, doublereal *);
     extern /* Subroutine */ int mvints_(integer *, integer *, doublereal *, 
@@ -326,7 +329,7 @@ s ',I7)", 0 };
 	    if (*inform__ == 0 && nd > 0) {
 
         /* Call the lattice rule integration subroutine */
-	      mvkbrv_(&nd, &ptblck_1.ivls, maxpts, &c__1, (U_fp)mvsubr_, abseps, releps, e, v, inform__);
+	      mvkbrv_(&nd, &ptblck_1.ivls, maxpts, &c__1, &mvsubr_, abseps, releps, e, v, inform__);
 	      *error = e[0];
 	      *value = v[0];
 	    }
@@ -1948,7 +1951,7 @@ L20:
 
 
 /* Subroutine */ int mvkbrv_(integer *ndim, integer *minvls, integer *maxvls, 
-	integer *nf, U_fp funsub, doublereal *abseps, doublereal *releps, 
+	integer *nf, integrand funsub, doublereal *abseps, doublereal *releps, 
 	doublereal *abserr, doublereal *finest, integer *inform__)
 {
     /* Initialized data */
@@ -2178,7 +2181,7 @@ L20:
     static doublereal values[5000], varest[5000], varsqr[5000];
     static integer intvls;
     extern /* Subroutine */ int mvkrsv_(integer *, integer *, doublereal *, 
-	    integer *, doublereal *, integer *, U_fp, doublereal *, 
+	    integer *, doublereal *, integer *, integrand, doublereal *, 
 	    doublereal *, integer *, doublereal *);
 
 
@@ -2290,7 +2293,7 @@ L10:
 
     i__1 = sampls;
     for (i__ = 1; i__ <= i__1; ++i__) {
-	mvkrsv_(ndim, &c__100, values, &p[np - 1], vk, nf, (U_fp)funsub, x, 
+	mvkrsv_(ndim, &c__100, values, &p[np - 1], vk, nf, funsub, x, 
 		r__, pr, fs);
 	i__2 = *nf;
 	for (k = 1; k <= i__2; ++k) {
@@ -2344,7 +2347,7 @@ L10:
 
 
 /* Subroutine */ int mvkrsv_(integer *ndim, integer *kl, doublereal *values, 
-	integer *prime, doublereal *vk, integer *nf, S_fp funsub, doublereal *
+	integer *prime, doublereal *vk, integer *nf, integrand funsub, doublereal *
 	x, doublereal *r__, integer *pr, doublereal *fs)
 {
     /* System generated locals */
