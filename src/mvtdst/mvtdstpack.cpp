@@ -69,7 +69,9 @@ static integer c__100 = 100;
     integer i__1;
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe(), do_fio(integer *, char *, ftnlen);
+    extern integer s_wsfe(cilist *);
+    extern integer e_wsfe(); 
+    extern integer do_fio(integer *, char *, ftnlen);
 
     /* Local variables */
     static integer i__, j, ij, nu;

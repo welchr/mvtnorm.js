@@ -43,9 +43,9 @@ function run_mvt_test() {
   let abseps = 0.001;
   let releps = 0.0;
 
-  // Error should be 0.000031585624965638197
-  // Value should be 0.12164661836389246
-  // Inform should be 0
+  console.log("Error should be: ", "0.000031585624965638197");
+  console.log("Value should be: ", "0.12164661836389246");
+  console.log("Inform should be 0")
   let result = pmvnorm(n, df, lower, upper, infin, corr, delta, maxpts, abseps, releps);
   return result;
 }
