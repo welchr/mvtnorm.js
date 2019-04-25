@@ -1,7 +1,6 @@
 #include "f2c.h"
 #undef abs
 #include <emscripten/bind.h>
-#include <iostream>
 #include <vector>
 using namespace emscripten;
 
@@ -31,35 +30,7 @@ MVNormResult pmvnorm(integer n, integer nu, DoubleVec& lower,
 {
   MVNormResult result;
   mvtdst_(&n, &nu, &lower[0], &upper[0], &infin[0], &correl[0], &delta[0], &maxpts, &abseps, &releps, &result.error, &result.value, &result.inform);
-  std::cout << "mvtdst_ value: " << result.value << std::endl;
   return result;
-}
-
-int boom() { 
-  return 42;
-}
-
-MVNormResult test() {
-  MVNormResult result;
-  result.value = 42;
-  result.error = 0.0;
-  result.inform = 3;
-  return result;
-}
-
-MVNormResult test2() {
-  MVNormResult result;
-  result.value = 100;
-  std::cout << result.value << std::endl;
-  return result;
-}
-
-int test3(IntVec& vec) {
-  int sum = 0;
-  for (auto&& x : vec) {
-    sum += x;
-  }
-  return sum;
 }
 
 #ifdef __cplusplus
@@ -73,10 +44,6 @@ EMSCRIPTEN_BINDINGS(mvtnorm) {
     .field("inform", &MVNormResult::inform);
   function("pmvnorm", &pmvnorm, allow_raw_pointers());
   function("tstmvt", &tstmvt_);
-  function("boom", &boom);
-  function("test", &test);
-  function("test2", &test2);
-  function("test3", &test3);
   register_vector<long int>("IntVec");
   register_vector<double>("DoubleVec");
 }
