@@ -49,3 +49,19 @@ function run_mvt_test() {
   let result = pmvnorm(n, df, lower, upper, infin, corr, delta, maxpts, abseps, releps);
   return result;
 }
+
+function test_wasm() {
+  var importObject = { 
+    imports: { 
+      i: arg => console.log(arg) 
+    }, 
+    env: {
+      abort: console.log
+    }
+  };
+
+  fetch("mvtdstpack.wasm")
+  .then(r => r.arrayBuffer())
+  .then(bytes => WebAssembly.instantiate(bytes, importObject));
+  return importObject;
+}
