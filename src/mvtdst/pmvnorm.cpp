@@ -11,8 +11,6 @@ using namespace emscripten;
 typedef std::vector<double> DoubleVec;
 typedef std::vector<long int> IntVec;
 
-extern "C" int tstmvt_();
-
 extern "C" int mvtdst_(integer *, integer *, doublereal *, 
   doublereal *, integer *, doublereal *, doublereal *, integer *, 
   doublereal *, doublereal *, doublereal *, doublereal *, integer *)
@@ -43,7 +41,6 @@ EMSCRIPTEN_BINDINGS(mvtnorm) {
     .field("error", &MVNormResult::error)
     .field("inform", &MVNormResult::inform);
   function("pmvnorm", &pmvnorm, allow_raw_pointers());
-  function("tstmvt", &tstmvt_);
   register_vector<long int>("IntVec");
   register_vector<double>("DoubleVec");
 }
