@@ -57,6 +57,9 @@ function test_wasm() {
     }, 
     env: {
       abort: console.log
+    },
+    global: {
+      "Infinity": Infinity
     }
   };
 
