@@ -22,7 +22,7 @@ struct MVNormResult {
   integer inform;
 };
 
-MVNormResult pmvnorm(integer n, integer nu, DoubleVec& lower, 
+MVNormResult mvtdst(integer n, integer nu, DoubleVec& lower,
   DoubleVec& upper, IntVec& infin, DoubleVec& correl, DoubleVec& delta, 
   integer maxpts, doublereal abseps, doublereal releps)
 {
@@ -40,7 +40,7 @@ EMSCRIPTEN_BINDINGS(mvtnorm) {
     .field("value", &MVNormResult::value)
     .field("error", &MVNormResult::error)
     .field("inform", &MVNormResult::inform);
-  function("pmvnorm", &pmvnorm, allow_raw_pointers());
+  function("mvtdst", &mvtdst);
   register_vector<long int>("IntVec");
   register_vector<double>("DoubleVec");
 }
