@@ -14,6 +14,7 @@
 
 .SUFFIXES: .c .o
 CC = emcc
+SYSTEM_CLANG = /usr/bin/clang
 SHELL = /bin/sh
 CFLAGS = -O3 -fpic
 
@@ -179,8 +180,8 @@ xwsne.o:	lio.h
 xwsne.o:	fmt.h
 
 arith.h: arithchk.c
-	clang -DNO_FPINIT arithchk.c -lm ||\
-	 clang -DNO_LONG_LONG -DNO_FPINIT arithchk.c -lm
+	$(SYSTEM_CLANG) -DNO_FPINIT arithchk.c -lm ||\
+	 $(SYSTEM_CLANG) -DNO_LONG_LONG -DNO_FPINIT arithchk.c -lm
 	./a.out >arith.h
 	rm -f a.out arithchk.o
 
