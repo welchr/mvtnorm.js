@@ -7,7 +7,11 @@ IFS=$'\n\t'
 #mv mvtdstpack.c mvtdstpack.cpp
 
 # Activate paths for emscripten
-source /Users/welchr/scratch/emsdk/emsdk_env.sh
+#source /path/to/emsdk/emsdk_env.sh
+if [[ -z "${EMSDK}" ]]; then
+  echo "Activate emsdk before running"
+  exit 1
+fi
 
 # Compile to WASM
 # Having a .html extension on the -o file makes emscripten generate .js, .html, and .wasm
@@ -36,4 +40,7 @@ em++ --bind -std=c++11 -Os \
 #em++ --bind -std=c++11 -g4 -I../f2c/libf2c/llvm/emscripten -s WASM=1 -s ASSERTIONS=2 -s DEMANGLE_SUPPORT=1 -o mvtdstpack.html mvtdstpack.cpp pmvnorm.cpp ../f2c/libf2c/llvm/emscripten/libf2c.a -lm
 
 # Convert wasm to text format to see output
-/Users/welchr/scratch/wabt/build/wasm2wat wasm/mvtdstpack.wasm -o wasm/mvtdstpack.wat
+# Must have installed wabt: https://github.com/WebAssembly/wabt
+if which wasm2at; then
+  wasm2wat wasm/mvtdstpack.wasm -o wasm/mvtdstpack.wat
+fi
