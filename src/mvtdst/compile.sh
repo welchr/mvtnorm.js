@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -euxo pipefail
 IFS=$'\n\t'
 
 # Compile fortran to C
@@ -41,6 +41,6 @@ em++ --bind -std=c++11 -Os \
 
 # Convert wasm to text format to see output
 # Must have installed wabt: https://github.com/WebAssembly/wabt
-if which wasm2at; then
+if which wasm2wat; then
   wasm2wat wasm/mvtdstpack.wasm -o wasm/mvtdstpack.wat
 fi
