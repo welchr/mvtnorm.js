@@ -69,6 +69,7 @@ all: f2c.h signal1.h sysdep1.h libf2c.a
 
 libf2c.a: $(OFILES)
 	emar r libf2c.a $?
+	-emranlib libf2c.a
 
 ## Shared-library variant: the following rule works on Linux
 ## systems.  Details are system-dependent.  Under Linux, -fPIC
