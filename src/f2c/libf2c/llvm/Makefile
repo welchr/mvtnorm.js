@@ -64,13 +64,19 @@ TIME =	dtime_.o etime_.o
 OFILES = $(MISC) $(POW) $(CX) $(DCX) $(REAL) $(DBL) $(INT) \
 	$(HALF) $(CMP) $(EFL) $(CHAR) $(I77) $(TIME)
 
-all: f2c.h signal1.h sysdep1.h libf2c.a
-	mkdir -p emscripten
-	cp f2c.h libf2c.a emscripten/
+EM_OFILES = $(POW) $(DBL)
+
+all: f2c.h signal1.h sysdep1.h libf2c.a emscripten/libf2c.a
 
 libf2c.a: $(OFILES)
 	emar r libf2c.a $?
 	-emranlib libf2c.a
+
+emscripten/libf2c.a: $(EM_OFILES)
+	mkdir -p emscripten
+	emar r emscripten/libf2c.a $?
+	-emranlib emscripten/libf2c.a
+	cp f2c.h emscripten/
 
 ## Shared-library variant: the following rule works on Linux
 ## systems.  Details are system-dependent.  Under Linux, -fPIC
