@@ -18,6 +18,7 @@ fi
 # Other interesting options: 
 # -s SINGLE_FILE=1 apparently tries to put everything into the same file (JS + WASM)
 # -s EXPORT_ES6=1 tries to export in ES6 mode with an export statement
+rm -rf wasm
 mkdir -p wasm
 em++ --bind -std=c++11 -Os \
   -I../f2c/libf2c/llvm/emscripten \
@@ -27,6 +28,7 @@ em++ --bind -std=c++11 -Os \
   -o wasm/mvtdstpack.js \
   mvtdstpack.cpp mvtdst.cpp ../f2c/libf2c/llvm/emscripten/libf2c.a -lm
 
+rm -rf asm
 mkdir -p asm
 em++ --bind -std=c++11 -Os \
   -I../f2c/libf2c/llvm/emscripten \
