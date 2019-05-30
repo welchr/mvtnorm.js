@@ -33,6 +33,8 @@ mkdir -p asm
 em++ --bind -std=c++11 -Os \
   -I../f2c/libf2c/llvm/emscripten \
   -s WASM=0 \
+  -s MODULARIZE=1 \
+  -s EXPORT_ES6=1 \
   --memory-init-file 0 \
   -s EXPORT_NAME="'mvtdstpack'" \
   -o asm/mvtdstpack.js \
