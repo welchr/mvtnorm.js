@@ -24,6 +24,7 @@ em++ --bind -std=c++11 -Os \
   -I../f2c/libf2c/llvm/emscripten \
   -s WASM=1 \
   -s MODULARIZE=1 \
+  -s EXPORT_ES6=1 \
   -s EXPORT_NAME="'mvtdstpack'" \
   -o wasm/mvtdstpack.js \
   mvtdstpack.cpp mvtdst.cpp ../f2c/libf2c/llvm/emscripten/libf2c.a -lm
